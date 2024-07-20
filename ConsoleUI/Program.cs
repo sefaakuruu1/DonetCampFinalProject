@@ -4,21 +4,44 @@ using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 
-Console.WriteLine("Hello, World!");
+//productTest();
+//CategoryTest();
 
 ProductManager productManager = new ProductManager(new EfProductDal());
 
-foreach(var p in productManager.GetByUnitPrice(10,20))
-{
-    Console.WriteLine(p.ProductName);
-}
-Console.WriteLine("----------------------------");
 
-foreach (var p in productManager.GetByCategoryId(3))
+foreach(var product in productManager.GetProductDetails())
 {
-    Console.WriteLine(p.ProductName);
+    Console.WriteLine(product.ProductName+ " -- " + product.CategoryName);
 }
-Console.WriteLine("----------------------------");
+static void productTest()
+{
+    Console.WriteLine("Hello, World!");
 
-var secondProduct=productManager.GetByProductId(2);
-Console.WriteLine(secondProduct.ProductName);
+    ProductManager productManager = new ProductManager(new EfProductDal());
+
+    foreach (var p in productManager.GetByUnitPrice(10, 20))
+    {
+        Console.WriteLine(p.ProductName);
+    }
+    Console.WriteLine("----------------------------");
+
+    foreach (var p in productManager.GetByCategoryId(3))
+    {
+        Console.WriteLine(p.ProductName);
+    }
+    Console.WriteLine("----------------------------");
+
+    var secondProduct = productManager.GetByProductId(2);
+    Console.WriteLine(secondProduct.ProductName);
+}
+
+static void CategoryTest()
+{
+    CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+    foreach (var c in categoryManager.GetAll())
+    {
+        Console.WriteLine(c.CategoryName);
+
+    }
+}
