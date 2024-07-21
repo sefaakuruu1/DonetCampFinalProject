@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Utilities
+namespace Core.Utilities.Results
 {
-    internal class Result
+    public interface IResult
     {
+        bool Success { get; }
+        string Message { get; }
+
+
     }
 }

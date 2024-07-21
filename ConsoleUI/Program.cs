@@ -8,31 +8,46 @@ using Entities.Concrete;
 //CategoryTest();
 
 ProductManager productManager = new ProductManager(new EfProductDal());
-
-
-foreach(var product in productManager.GetProductDetails())
+var result = productManager.GetAll();
+if (result.Success)
 {
-    Console.WriteLine(product.ProductName+ " -- " + product.CategoryName);
+    if (result.Data != null)
+    {
+        foreach (var product in result.Data)
+        {
+            Console.WriteLine(product.ProductName + " -- " );
+        }
+    }
+    else
+    {
+        Console.WriteLine("Data is null.");
+    }
 }
+else
+{
+    Console.WriteLine(result.Message);
+}
+
+
 static void productTest()
 {
     Console.WriteLine("Hello, World!");
 
     ProductManager productManager = new ProductManager(new EfProductDal());
 
-    foreach (var p in productManager.GetByUnitPrice(10, 20))
+    foreach (var p in productManager.GetByUnitPrice(10, 20).Data)
     {
         Console.WriteLine(p.ProductName);
     }
     Console.WriteLine("----------------------------");
 
-    foreach (var p in productManager.GetByCategoryId(3))
+    foreach (var p in productManager.GetByCategoryId(3).Data)
     {
         Console.WriteLine(p.ProductName);
     }
     Console.WriteLine("----------------------------");
 
-    var secondProduct = productManager.GetByProductId(2);
+    var secondProduct = productManager.GetByProductId(2).Data;
     Console.WriteLine(secondProduct.ProductName);
 }
 
